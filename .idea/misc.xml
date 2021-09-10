@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/drawable/ic_addTask_foreground.xml" value="0.1625" />
+        <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/layout/activity_alarm.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/layout/activity_default.xml" value="0.2586050724637681" />
+        <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/layout/activity_how_much.xml" value="0.33" />
         <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/layout/activity_settings.xml" value="0.2586050724637681" />
         <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/layout/activity_transport_select.xml" value="0.33" />
+        <entry key="..\:/Users/Professional/AndroidStudioProjects/Podelam/app/src/main/res/mipmap-anydpi-v26/ic_addTask.xml" value="0.1625" />
       </map>
     </option>
   </component>

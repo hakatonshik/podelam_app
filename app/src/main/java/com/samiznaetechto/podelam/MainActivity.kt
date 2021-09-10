@@ -12,11 +12,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var setting = settingsWrapper(applicationInfo.dataDir)
+        if(setting.isThereSetting())
+        {
+            val intent = Intent(this, defaultActivity::class.java)
+            startActivity(intent)
+        }
+
         val student: Button = findViewById(R.id.studentButton)
         student.setOnClickListener()
         { i ->
             i.setBackgroundColor(RED)
             val intent = Intent(this, TransportSelectActivity::class.java)
+            intent.putExtra("Status", "Student")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -26,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         { i ->
             i.setBackgroundColor(RED)
             val intent = Intent(this, TransportSelectActivity::class.java)
+            intent.putExtra("Status", "Worker")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -34,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         { i ->
             i.setBackgroundColor(RED)
             val intent = Intent(this, TransportSelectActivity::class.java)
+            intent.putExtra("Status", "Not stated")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -42,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         { i ->
             i.setBackgroundColor(RED)
             val intent = Intent(this, TransportSelectActivity::class.java)
+            intent.putExtra("Status", "Schoolar")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }

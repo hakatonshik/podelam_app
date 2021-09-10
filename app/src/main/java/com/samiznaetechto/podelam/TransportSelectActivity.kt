@@ -10,11 +10,17 @@ class TransportSelectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transport_select)
+
+        var status = intent.getStringExtra("Status")
+
+
         val walk: Button = findViewById(R.id.walkBtn)
         walk.setOnClickListener()
         { i ->
             i.setBackgroundColor(Color.RED)
-            val intent = Intent(this, defaultActivity::class.java)
+            val intent = Intent(this, howMuchActivity::class.java)
+            intent.putExtra("Status", status)
+            intent.putExtra("Transport", "Walk")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -23,7 +29,9 @@ class TransportSelectActivity : AppCompatActivity() {
         bus.setOnClickListener()
         { i ->
             i.setBackgroundColor(Color.RED)
-            val intent = Intent(this, defaultActivity::class.java)
+            val intent = Intent(this, howMuchActivity::class.java)
+            intent.putExtra("Status", status)
+            intent.putExtra("Transport", "Bus")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -31,7 +39,9 @@ class TransportSelectActivity : AppCompatActivity() {
         car.setOnClickListener()
         { i ->
             i.setBackgroundColor(Color.RED)
-            val intent = Intent(this, defaultActivity::class.java)
+            val intent = Intent(this, howMuchActivity::class.java)
+            intent.putExtra("Status", status)
+            intent.putExtra("Transport", "Car")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
