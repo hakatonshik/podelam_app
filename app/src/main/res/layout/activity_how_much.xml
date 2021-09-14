@@ -15,11 +15,26 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Такой вопрос... Сколько?"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="А теперь немного о себе"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/howMuchDescriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Сколько у тебя занимает:"
+            android:textAlignment="center"
+            android:textColor="@color/blue_grey"
+            android:textSize="14sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -51,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="15"
+                android:hint="15 минут?"
                 android:inputType="number"
                 android:minHeight="48dp" />
 
@@ -92,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="30"
+                android:hint="30 минут?"
                 android:inputType="number"
                 android:minHeight="48dp" />
 
@@ -132,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="30"
+                android:hint="30 минут?"
                 android:inputType="number"
                 android:minHeight="48dp" />
 
@@ -142,10 +157,17 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="50dp" />
+
         <Button
             android:id="@+id/submitBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+
+            android:layout_marginRight="30dp"
             android:text="Поехали" />
 
     </LinearLayout>

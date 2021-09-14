@@ -10,6 +10,7 @@ import android.widget.TextView
 class howMuchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_how_much)
 
         var status = intent.getStringExtra("Status")

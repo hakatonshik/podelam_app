@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="348dp"
         android:layout_height="53dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-black"
+        android:layout_marginTop="65dp"
+        android:fontFamily="sans-serif-light"
         android:text="Привет!"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,8 @@
         android:layout_width="351dp"
         android:layout_height="84dp"
         android:layout_marginStart="8dp"
-        android:text="Это приложение создано для того, чтобы ты везде и всё успевал.\n Давай сперва познакомимся"
+        android:text="Это приложение создано для того, чтобы ты везде и всё успевал.\nДавай сперва познакомимся"
+        android:textAlignment="center"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
         android:layout_width="347dp"
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
-        android:text="Кто ты по жизни?"
+        android:text="Чем занимаешься?"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -46,26 +47,29 @@
 
     <Button
         android:id="@+id/workerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Я работяга"
+        android:layout_marginTop="15dp"
+        android:text="Работаю"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 
     <Button
         android:id="@+id/studentButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Я студент"
+        android:layout_marginTop="15dp"
+        android:text="Студент"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workerButton" />
 
     <Button
         android:id="@+id/notStatedButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="Не скажу"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,11 +77,24 @@
 
     <Button
         android:id="@+id/schoolarButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Я школьник"
+        android:layout_marginTop="15dp"
+        android:text="Школьник"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/studentButton" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Используйте на свой страх и риск"
+        android:textAlignment="center"
+        android:textColor="@color/blue_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

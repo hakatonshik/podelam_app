@@ -9,6 +9,7 @@ import android.widget.Button
 class TransportSelectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_transport_select)
 
         var status = intent.getStringExtra("Status")
