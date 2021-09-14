@@ -1,11 +1,9 @@
 package com.samiznaetechto.podelam
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Color.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
-        var setting = settingsWrapper(applicationInfo.dataDir)
+        var setting = SettingsWrapper(applicationInfo.dataDir)
         if(setting.isThereSetting())
         {
             val intent = Intent(this, defaultActivity::class.java)

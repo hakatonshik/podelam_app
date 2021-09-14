@@ -44,7 +44,7 @@ class howMuchActivity : AppCompatActivity() {
                 wakeupTime = wakeup.text.toString().toInt(),
                 preparationTime = prepare.text.toString().toInt(),
                 breakfastTime = breakfast.text.toString().toInt())
-            var _set = settingsWrapper(applicationInfo.dataDir)
+            var _set = SettingsWrapper(applicationInfo.dataDir)
             _set.settingSet(_setting!!)
             val intent = Intent(this, defaultActivity::class.java)
             startActivity(intent)

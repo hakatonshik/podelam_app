@@ -9,7 +9,7 @@ import java.util.*
 
 
 
-object alarmhandler {
+object AlarmHandler {
 
     fun create(context: Context, calendar : Calendar)
     {

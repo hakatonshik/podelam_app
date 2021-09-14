@@ -25,9 +25,11 @@ data class setting (
     var wakeupTime : Int,
     var preparationTime : Int,
     var breakfastTime : Int
-        )
+        ) {
 
-class settingsWrapper (appDir : String) {
+}
+
+class SettingsWrapper (appDir : String) {
     var path = appDir + "/pd_settings.ini"
 
     fun isThereSetting() = File(path).exists()

@@ -11,7 +11,7 @@ class settingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         var reset : Button = findViewById<Button>(R.id.resetBtn)
         reset.setOnClickListener() {
-            var s = settingsWrapper(applicationInfo.dataDir)
+            var s = SettingsWrapper(applicationInfo.dataDir)
             s.settingReset()
             Toast.makeText(applicationContext, "Перезапустите приложение", Toast.LENGTH_SHORT).show()
         }

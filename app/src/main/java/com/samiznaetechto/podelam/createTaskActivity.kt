@@ -9,7 +9,6 @@ import android.widget.Toast
 import com.google.android.material.timepicker.TimeFormat
 
 import com.google.android.material.timepicker.MaterialTimePicker
-import android.view.View
 import java.util.*
 
 
@@ -77,7 +76,7 @@ class createTaskActivity : AppCompatActivity() {
             )
 
 
-            alarmhandler.create(
+            AlarmHandler.create(
                 this,
                 calendar
             )

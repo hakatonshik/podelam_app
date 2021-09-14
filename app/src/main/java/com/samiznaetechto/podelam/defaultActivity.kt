@@ -2,16 +2,21 @@ package com.samiznaetechto.podelam
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.os.Process
-import android.widget.Button
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.system.exitProcess
+import android.R.*
+import android.view.View
+
+import android.widget.LinearLayout
+
+
+
 
 
 class defaultActivity : AppCompatActivity() {
@@ -40,13 +45,14 @@ class defaultActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.activity_default)
 
+
         checkIfThereAreTasks()
         setInfo()
 
     }
 
     private fun setInfo() {
-        var _settingWrapper = settingsWrapper(applicationInfo.dataDir)
+        var _settingWrapper = SettingsWrapper(applicationInfo.dataDir)
         var _setting = _settingWrapper.settingRead()
 
         var _userStatus: TextView = findViewById(R.id.userStatus)
@@ -80,8 +86,24 @@ class defaultActivity : AppCompatActivity() {
     }
 
     private fun checkIfThereAreTasks() {
-        var text : TextView = findViewById(R.id.currentTasksText)
-        text.text = "Задачек нет :("
+        val tb = TaskBuilder(this)
+        var linearLayout = findViewById<LinearLayout>(R.id.tasksLayout)
+        var d = tb.GetAllTasks()
+        if(d == null) {
+            var text : TextView = findViewById(R.id.currentTasksText)
+            text.text = "Задачек нет :("
+        }
+        else {
+            linearLayout.removeAllViewsInLayout()
+            d.forEach()
+            {
+                val taskTextView = TextView(this)
+                taskTextView.textSize = 15f
+                taskTextView.text =
+                    "${it.taskName} = ${it.taskPlace} = ${it.taskTarget} =${it.taskTime}"
+                linearLayout.addView(taskTextView)
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -94,16 +116,20 @@ class defaultActivity : AppCompatActivity() {
                     data.getStringExtra("taskTarget")!!,
                 )
             }
-            super.onActivityResult(requestCode, resultCode, data)
         }
+        checkIfThereAreTasks()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     fun createEvent(taskName : String, taskTime : String, taskPlace : String, taskTarget : String)
     {
+        var d = TaskBuilder(this)
+        d.AddTask(Task(taskName, taskTime, taskPlace, taskTarget))
         val text = "$taskName, $taskTime, $taskPlace, $taskTarget"
         val duration = Toast.LENGTH_LONG
         val toast = Toast.makeText(applicationContext, text, duration)
         toast.show()
+        checkIfThereAreTasks()
     }
 
 }
