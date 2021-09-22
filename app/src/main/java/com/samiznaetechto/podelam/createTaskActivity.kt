@@ -13,89 +13,88 @@ import java.util.*
 
 
 class createTaskActivity : AppCompatActivity() {
-    lateinit var toast: Toast
+    private lateinit var toast: Toast
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        val text = "Всё ли заполнено?"
-        val duration = Toast.LENGTH_LONG
-        toast = Toast.makeText(applicationContext, text, duration)
+        toast = Toast.makeText(applicationContext, "Всё ли заполнено?", Toast.LENGTH_LONG)
         setContentView(R.layout.activity_create_task)
         setButtonLogic()
-
     }
 
 
     private fun setButtonLogic() {
 
 
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
+        val calendar: Calendar = Calendar.getInstance().apply {
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
 
 
-        var subbtn: Button = findViewById(R.id.submitTaskButton)
+        val subbtn: Button = findViewById(R.id.submitTaskButton)
         subbtn.setOnClickListener {
-            var intent = Intent()
 
-            var eventNameText: EditText = findViewById(R.id.eventNameTextBox)
+
+            val eventNameText: EditText = findViewById(R.id.eventNameTextBox)
             if (eventNameText.text == null) {
                 toast.show()
                 return@setOnClickListener
             }
-            intent.putExtra(
-                "taskName",
-                eventNameText.text.toString()
-            )
 
-            var eventNameTime = ""
-            intent.putExtra(
-                "taskTime",
-                eventNameTime
-            )
+            val eventNameTime = ""
 
-            var eventPlace: EditText = findViewById(R.id.startPlaceTextBox)
+            val eventPlace: EditText = findViewById(R.id.startPlaceTextBox)
             if (eventPlace.text == null) {
                 toast.show()
                 return@setOnClickListener
             }
-            intent.putExtra(
-                "taskPlace",
-                eventPlace.text.toString()
-            )
 
-            var eventAim: EditText = findViewById(R.id.targetPlaceNameTextBox)
+            val eventAim: EditText = findViewById(R.id.targetPlaceNameTextBox)
             if (eventAim.text == null) {
                 toast.show()
                 return@setOnClickListener
             }
-            intent.putExtra(
-                "taskTarget",
-                eventAim.text.toString()
-            )
 
+            val intent = Intent().apply {
+                putExtra(
+                    "taskName",
+                    eventNameText.text.toString()
+                )
 
+                putExtra(
+                    "taskTime",
+                    eventNameTime
+                )
+
+                putExtra(
+                    "taskPlace",
+                    eventPlace.text.toString()
+                )
+
+                putExtra(
+                    "taskTarget",
+                    eventAim.text.toString()
+                )
+            }
             AlarmHandler.create(
                 this,
                 calendar
             )
-
-
-
             setResult(RESULT_OK, intent)
             finish()
         }
 
 
-        var cancelBtn: Button = findViewById(R.id.cancelTaskButton)
+        val cancelBtn: Button = findViewById(R.id.cancelTaskButton)
         cancelBtn.setOnClickListener {
             setResult(RESULT_CANCELED)
             finish()
         }
 
 
-        var timeSelect: Button = findViewById(R.id.timeSelectBtn)
+        val timeSelect: Button = findViewById(R.id.timeSelectBtn)
         timeSelect.setOnClickListener {
             val materialTimePicker = MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -105,8 +104,10 @@ class createTaskActivity : AppCompatActivity() {
                 .build()
 
             materialTimePicker.addOnPositiveButtonClickListener {
-                calendar.set(Calendar.MINUTE, materialTimePicker.minute)
-                calendar.set(Calendar.HOUR_OF_DAY, materialTimePicker.hour)
+                calendar.apply {
+                    set(Calendar.MINUTE, materialTimePicker.minute)
+                    set(Calendar.HOUR_OF_DAY, materialTimePicker.hour)
+                }
                 Toast.makeText(this, "Время установлено", Toast.LENGTH_SHORT).show()
             }
             materialTimePicker.show(supportFragmentManager, "тег")

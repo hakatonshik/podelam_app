@@ -1,6 +1,7 @@
 package com.samiznaetechto.podelam
 
 import android.content.Context
+import android.util.Log
 import com.samiznaetechto.podelam.data.TaskDatabase
 
 
@@ -18,7 +19,7 @@ class TaskBuilder (context: Context)
 
     fun CreateTask(_tskName : String, _tskTime : String, _tskPlace : String, _tskTarget : String) : Task
     {
-        val task = Task(_tskName, _tskTime, _tskPlace, _tskTarget)
+        val task = Task(TaskDatabase.getLastId()+1, _tskName, _tskTime, _tskPlace, _tskTarget)
         AddTask(task)
         return task
     }
@@ -27,9 +28,9 @@ class TaskBuilder (context: Context)
         TaskDatabase.AddTaskToDB(task)
     }
 
-    fun RemoveTask()
+    fun RemoveTask(id: Int)
     {
-        TODO("Потом сделаю")
+        TaskDatabase.RemoveTask(id)
     }
 
     fun EditTask()
@@ -38,21 +39,24 @@ class TaskBuilder (context: Context)
     }
 
     fun GetAllTasks() : MutableList<Task> {
-        var list = mutableListOf<Task>()
-        var c = TaskDatabase.GetTasks()
+        val list = mutableListOf<Task>()
+        val c = TaskDatabase.GetTasks()
 
-        var idIndex = c.getColumnIndex("_id")
-        var tasknameIndex = c.getColumnIndex(TaskDatabase.TASK_NAME)
-        var taskplaceIndex = c.getColumnIndex(TaskDatabase.TASK_PLACE)
-        var tasktargetIndex = c.getColumnIndex(TaskDatabase.TASK_TARGET)
-        var tasktimeIndex = c.getColumnIndex(TaskDatabase.TASK_TIME)
+        val idIndex = c.getColumnIndex("_id")
+        val tasknameIndex = c.getColumnIndex(TaskDatabase.TASK_NAME)
+        val taskplaceIndex = c.getColumnIndex(TaskDatabase.TASK_PLACE)
+        val tasktargetIndex = c.getColumnIndex(TaskDatabase.TASK_TARGET)
+        val tasktimeIndex = c.getColumnIndex(TaskDatabase.TASK_TIME)
+        if(c.count <= 0) return list
         c.moveToFirst()
         do {
             list.add( Task(
+                c.getInt(idIndex),
                 c.getString(tasknameIndex),
                 c.getString(tasktimeIndex),
                 c.getString(taskplaceIndex),
                 c.getString(tasktargetIndex)))
+            Log.e("GetAllTasks", "Получена задача с айди ${c.getInt(idIndex)} и именем ${c.getString(tasknameIndex)}")
             } while (c.moveToNext())
         return list
         }

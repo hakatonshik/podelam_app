@@ -9,9 +9,9 @@ class settingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        var reset : Button = findViewById<Button>(R.id.resetBtn)
-        reset.setOnClickListener() {
-            var s = SettingsWrapper(applicationInfo.dataDir)
+        val reset : Button = findViewById(R.id.resetBtn)
+        reset.setOnClickListener {
+            val s = SettingsWrapper(applicationInfo.dataDir)
             s.settingReset()
             Toast.makeText(applicationContext, "Перезапустите приложение", Toast.LENGTH_SHORT).show()
         }

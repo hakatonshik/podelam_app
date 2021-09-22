@@ -5,18 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import android.R.*
-import android.view.View
+import android.widget.*
 
-import android.widget.LinearLayout
-
-
-
+import com.samiznaetechto.podelam.data.TaskDatabase
 
 
 class defaultActivity : AppCompatActivity() {
@@ -44,18 +37,15 @@ class defaultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_default)
-
-
         checkIfThereAreTasks()
         setInfo()
-
     }
 
     private fun setInfo() {
-        var _settingWrapper = SettingsWrapper(applicationInfo.dataDir)
-        var _setting = _settingWrapper.settingRead()
+        val _settingWrapper = SettingsWrapper(applicationInfo.dataDir)
+        val _setting = _settingWrapper.settingRead()
 
-        var _userStatus: TextView = findViewById(R.id.userStatus)
+        val _userStatus: TextView = findViewById(R.id.userStatus)
         _userStatus.text = when(_setting.userStatusId)
         {
             userStatus.STUDENT -> "Бедный студент"
@@ -63,7 +53,7 @@ class defaultActivity : AppCompatActivity() {
             userStatus.NOTSTATED -> "Некто"
             userStatus.SCHOOLAR -> "Школота"
         }
-        var _userTransport: TextView = findViewById(R.id.userTransport)
+        val _userTransport: TextView = findViewById(R.id.userTransport)
         _userTransport.text = when(_setting.userTransportId)
         {
             userTransport.BUS -> "на басике"
@@ -72,48 +62,62 @@ class defaultActivity : AppCompatActivity() {
             userTransport.CAR -> "на ласточке"
         }
 
-        var setBtn : ImageButton = findViewById(R.id.SettingShowBtn)
+        val setBtn : ImageButton = findViewById(R.id.SettingShowBtn)
         setBtn.setOnClickListener {
-            var intent = Intent(this, settingsActivity::class.java)
+            val intent = Intent(this, settingsActivity::class.java)
             startActivity(intent)
         }
 
-        var addTaskBtn : ImageButton = findViewById(R.id.addTaskBtn)
+        val addTaskBtn : ImageButton = findViewById(R.id.addTaskBtn)
         addTaskBtn.setOnClickListener {
-            var intent = Intent(this, createTaskActivity::class.java)
+            val intent = Intent(this, createTaskActivity::class.java)
             startActivityForResult(intent, 1)
         }
     }
 
     private fun checkIfThereAreTasks() {
         val tb = TaskBuilder(this)
-        var linearLayout = findViewById<LinearLayout>(R.id.tasksLayout)
-        var d = tb.GetAllTasks()
+        val linearLayout = findViewById<LinearLayout>(R.id.tasksLayout)
+        val d = tb.GetAllTasks()
         if(d == null) {
-            var text : TextView = findViewById(R.id.currentTasksText)
+            val text : TextView = findViewById(R.id.currentTasksText)
             text.text = "Задачек нет :("
+            return
         }
         else {
             linearLayout.removeAllViewsInLayout()
             d.forEach()
             {
-                val taskTextView = TextView(this)
-                taskTextView.textSize = 15f
-                taskTextView.text =
-                    "${it.taskName} = ${it.taskPlace} = ${it.taskTarget} =${it.taskTime}"
+                val t = it
+                Log.e("checkIfThereAreTasks", "Получена задача от GetAllTasks, айди = ${it.id}")
+                val taskTextView = TextView(this).apply {
+                    textSize = 15f
+                    text = "${it.taskName} = ${it.taskPlace} = ${it.taskTarget} =${it.taskTime}"
+                }
                 linearLayout.addView(taskTextView)
+                val removeBtn = Button(this).apply {
+                    text = "удалить"
+                }
+                removeBtn.setOnClickListener {
+                    val d = TaskBuilder(this)
+                    Log.e("setOnClickListener", "Удалена запись с айди ${t.id}")
+                    d.RemoveTask(t.id)
+                    linearLayout.removeAllViews()
+                    checkIfThereAreTasks()
+                }
+                linearLayout.addView(removeBtn)
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode != RESULT_CANCELED) {
-            if (data != null) {
+            data?.let {
                 createEvent(
-                    data.getStringExtra("taskName")!!,
-                    data.getStringExtra("taskTime")!!,
-                    data.getStringExtra("taskPlace")!!,
-                    data.getStringExtra("taskTarget")!!,
+                    it.getStringExtra("taskName")!!,
+                    it.getStringExtra("taskTime")!!,
+                    it.getStringExtra("taskPlace")!!,
+                    it.getStringExtra("taskTarget")!!,
                 )
             }
         }
@@ -121,14 +125,10 @@ class defaultActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun createEvent(taskName : String, taskTime : String, taskPlace : String, taskTarget : String)
+    private fun createEvent(taskName : String, taskTime : String, taskPlace : String, taskTarget : String)
     {
-        var d = TaskBuilder(this)
-        d.AddTask(Task(taskName, taskTime, taskPlace, taskTarget))
-        val text = "$taskName, $taskTime, $taskPlace, $taskTarget"
-        val duration = Toast.LENGTH_LONG
-        val toast = Toast.makeText(applicationContext, text, duration)
-        toast.show()
+        val d = TaskBuilder(this)
+        d.AddTask(Task(TaskDatabase.getLastId(), taskName, taskTime, taskPlace, taskTarget))
         checkIfThereAreTasks()
     }
 

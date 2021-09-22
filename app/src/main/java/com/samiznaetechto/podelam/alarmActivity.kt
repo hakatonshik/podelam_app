@@ -15,20 +15,20 @@ import kotlin.system.exitProcess
 
 class alarmActivity : AppCompatActivity() {
 
-    lateinit var ringtone : Ringtone
+    private lateinit var ringtone : Ringtone
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
         makeRingtoneAudible()
-        var eg = ExerciseGenerator()
-        var ex = eg.createExercise()
+        val eg = ExerciseGenerator()
+        val ex = eg.createExercise()
 
-        var exerciseTextView: TextView = findViewById(R.id.turnOffAlarmTaskTextView)
+        val exerciseTextView: TextView = findViewById(R.id.turnOffAlarmTaskTextView)
         exerciseTextView.text = ex.mathStr
 
-        var submitExerciseBtn: Button = findViewById(R.id.btnAnswerTask)
+        val submitExerciseBtn: Button = findViewById(R.id.btnAnswerTask)
         submitExerciseBtn.setOnClickListener {
-            var answer: EditText = findViewById(R.id.textAnswer)
+            val answer: EditText = findViewById(R.id.textAnswer)
             if (answer.text.toString() == ex.answer.toString()) {
                 stopRingtone()
                 exitProcess(0)
@@ -46,14 +46,12 @@ class alarmActivity : AppCompatActivity() {
             notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             ringtone = RingtoneManager.getRingtone(this, notificationUri)
         }
-        if (ringtone != null) {
-            ringtone.play()
-        }
+        ringtone.play()
     }
 
     private fun stopRingtone()
     {
-        if (ringtone != null && ringtone.isPlaying) {
+        if (ringtone.isPlaying) {
             ringtone.stop()
         }
     }

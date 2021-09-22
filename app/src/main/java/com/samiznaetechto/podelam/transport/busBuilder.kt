@@ -2,15 +2,15 @@ package com.samiznaetechto.podelam.transport
 
 class busBuilder {
 
-    var Azimuth = "0"
-    var GaragNumb = "0"
-    var Graph = "0"
-    var Latitude = "0"
-    var Longitude = "0"
-    var Marsh = "0"
-    var Smena = "0"
-    var Speed = "0"
-    var TimeNav = "0"
+    private var Azimuth = "0"
+    private var GaragNumb = "0"
+    private var Graph = "0"
+    private var Latitude = "0"
+    private var Longitude = "0"
+    private var Marsh = "0"
+    private var Smena = "0"
+    private var Speed = "0"
+    private var TimeNav = "0"
     var data = busData(
         Azimuth,
         GaragNumb,

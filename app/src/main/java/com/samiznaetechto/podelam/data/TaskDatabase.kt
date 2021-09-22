@@ -1,5 +1,6 @@
 package com.samiznaetechto.podelam.data
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -8,12 +9,12 @@ import android.util.Log
 import com.samiznaetechto.podelam.Task
 
 object TaskDatabase {
-    lateinit var cv : ContentValues
-    lateinit var dbHelper : DatabaseHelper
-    val TAG = "DB"
-    lateinit var db : SQLiteDatabase
+    private lateinit var cv : ContentValues
+    private lateinit var dbHelper : DatabaseHelper
+    private const val TAG = "DB"
+    private lateinit var db : SQLiteDatabase
 
-    lateinit var TABLE_NAME : String
+    private lateinit var TABLE_NAME : String
     lateinit var TASK_NAME : String
     lateinit var TASK_TIME : String
     lateinit var TASK_PLACE : String
@@ -38,9 +39,20 @@ object TaskDatabase {
         db.delete(dbHelper.TABLE_NAME, null, null)
     }
 
-    fun RemoveTask(id : Long)
+    fun RemoveTask(id : Int)
     {
+        Log.e(TAG, "$TABLE_NAME -> DELETE $id")
+        db.execSQL("DELETE FROM $TABLE_NAME WHERE _id = $id")
+    }
 
+    @SuppressLint("Range")
+    fun getLastId() : Int {
+        val cursor: Cursor =
+            db.query(dbHelper.TABLE_NAME, null, null, null, null, null, null)
+        if(cursor.count <= 0) return 1
+        cursor.moveToLast()
+        Log.e(TAG, "Отправлен последний айди ${cursor.getInt(cursor.getColumnIndex("_id"))}")
+        return cursor.getInt(cursor.getColumnIndex("_id"))
     }
 
     fun RemoveLastTask()
@@ -50,18 +62,20 @@ object TaskDatabase {
 
     fun AddTaskToDB(task: Task) : Long
     {
-        cv.put(dbHelper.TASK_NAME, task.taskName)
-        cv.put(dbHelper.TASK_PLACE, task.taskPlace)
-        cv.put(dbHelper.TASK_TARGET, task.taskTarget)
-        cv.put(dbHelper.TASK_TIME, task.taskTime)
-        var id = db.insert(dbHelper.TABLE_NAME, null, cv)
-        Log.e(TAG, "Добавлена запись, айди = $id")
+        cv.run {
+            put(dbHelper.TASK_NAME, task.taskName)
+            put(dbHelper.TASK_PLACE, task.taskPlace)
+            put(dbHelper.TASK_TARGET, task.taskTarget)
+            put(dbHelper.TASK_TIME, task.taskTime)
+        }
+        val id = db.insert(dbHelper.TABLE_NAME, null, cv)
+        Log.e("AddTaskToDB", "Добавлена запись, айди = ${task.id}")
         return id
     }
 
     fun GetTasks() : Cursor
     {
-        Log.e(TAG, "Получены значения бд")
+        Log.e("GetTasks", "Получены значения бд")
         //как же много налов
         return db.query(dbHelper.TABLE_NAME, null, null, null, null, null, null, null)
     }

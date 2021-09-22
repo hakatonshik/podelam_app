@@ -11,19 +11,21 @@ import java.util.*
 
 object AlarmHandler {
 
-    fun create(context: Context, calendar : Calendar)
-    {
-        val alarm = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
-        val alarmClockInfo = AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), getAlarmInfoPendingIntent(context))
-        if (alarm != null) {
-            alarm.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent(context))
-        }
+    fun create(context: Context, calendar: Calendar) {
+        val alarmClockInfo = AlarmManager.AlarmClockInfo(
+            calendar.timeInMillis,
+            getAlarmInfoPendingIntent(context)
+        )
+        (context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?)?.setAlarmClock(
+            alarmClockInfo,
+            getAlarmActionPendingIntent(context)
+        )
     }
 
-    fun getAlarmInfoPendingIntent(context : Context): PendingIntent {
-        var alarmInfoIntent = Intent(context, defaultActivity::class.java)
-        if (alarmInfoIntent != null) {
-            alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+    private fun getAlarmInfoPendingIntent(context : Context): PendingIntent {
+        val alarmInfoIntent = Intent(context, defaultActivity::class.java)
+        alarmInfoIntent.apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         return PendingIntent.getActivity(
             context,
@@ -33,9 +35,10 @@ object AlarmHandler {
         )
     }
 
-    fun getAlarmActionPendingIntent(context : Context): PendingIntent {
-        var intent = Intent(context, alarmActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+    private fun getAlarmActionPendingIntent(context : Context): PendingIntent {
+        val intent = Intent(context, alarmActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
         return PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 }

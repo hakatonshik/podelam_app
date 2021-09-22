@@ -1,7 +1,7 @@
 package com.samiznaetechto.podelam.exercises
 
-import java.lang.Exception
-import kotlin.random.*
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 
 class ExerciseGenerator {

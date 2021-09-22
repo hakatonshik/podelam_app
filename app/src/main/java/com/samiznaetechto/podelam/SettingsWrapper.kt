@@ -25,12 +25,10 @@ data class setting (
     var wakeupTime : Int,
     var preparationTime : Int,
     var breakfastTime : Int
-        ) {
-
-}
+        )
 
 class SettingsWrapper (appDir : String) {
-    var path = appDir + "/pd_settings.ini"
+    private var path = "$appDir/pd_settings.ini"
 
     fun isThereSetting() = File(path).exists()
 
@@ -42,7 +40,7 @@ class SettingsWrapper (appDir : String) {
 
     fun settingRead() : setting
     {
-        var content = File(path).readLines()
+        val content = File(path).readLines()
         var _setting : setting
 
         var userStatusId = userStatus.STUDENT //default
@@ -92,7 +90,7 @@ class SettingsWrapper (appDir : String) {
     fun settingSet(_setting: setting)
     {
         settingReset()
-        var file = File(path)
+        val file = File(path)
         var content = ""
         content += when(_setting.userStatusId) {
             userStatus.STUDENT -> "1\n"

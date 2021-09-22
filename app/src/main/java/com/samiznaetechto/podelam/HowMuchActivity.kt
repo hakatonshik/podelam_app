@@ -13,17 +13,17 @@ class howMuchActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.activity_how_much)
 
-        var status = intent.getStringExtra("Status")
-        var transport = intent.getStringExtra("Transport")
+        val status = intent.getStringExtra("Status")
+        val transport = intent.getStringExtra("Transport")
         var _setting : setting?
 
         val submit : Button = findViewById(R.id.submitBtn)
-        submit.setOnClickListener() { i ->
+        submit.setOnClickListener { i ->
             i.setBackgroundColor(Color.RED)
 
-            var wakeup : TextView = findViewById(R.id.wakeupTimeTextBox)
-            var prepare : TextView = findViewById(R.id.preparationTimeTextBox)
-            var breakfast : TextView = findViewById(R.id.breakfastTimeTextBox)
+            val wakeup : TextView = findViewById(R.id.wakeupTimeTextBox)
+            val prepare : TextView = findViewById(R.id.preparationTimeTextBox)
+            val breakfast : TextView = findViewById(R.id.breakfastTimeTextBox)
 
             _setting = setting( userStatusId = when(status)
                     {
@@ -44,11 +44,11 @@ class howMuchActivity : AppCompatActivity() {
                 wakeupTime = wakeup.text.toString().toInt(),
                 preparationTime = prepare.text.toString().toInt(),
                 breakfastTime = breakfast.text.toString().toInt())
-            var _set = SettingsWrapper(applicationInfo.dataDir)
+            val _set = SettingsWrapper(applicationInfo.dataDir)
             _set.settingSet(_setting!!)
             val intent = Intent(this, defaultActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
     }
