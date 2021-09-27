@@ -4,6 +4,8 @@ import android.content.Intent
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import com.samiznaetechto.podelam.activity.alarmActivity
+import com.samiznaetechto.podelam.activity.defaultActivity
 import java.util.*
 
 

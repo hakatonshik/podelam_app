@@ -13,25 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoDelam">
         <activity
-            android:name=".alarmActivity"
+            android:name=".activity.alarmActivity"
             android:exported="true" />
         <activity
-            android:name=".howMuchActivity"
+            android:name=".activity.howMuchActivity"
             android:exported="true" />
         <activity
-            android:name=".defaultActivity"
+            android:name=".activity.defaultActivity"
             android:exported="true" />
         <activity
-            android:name=".settingsActivity"
+            android:name=".activity.settingsActivity"
             android:exported="true" />
         <activity
-            android:name=".createTaskActivity"
+            android:name=".activity.createTaskActivity"
             android:exported="true" />
         <activity
-            android:name=".TransportSelectActivity"
+            android:name=".activity.TransportSelectActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

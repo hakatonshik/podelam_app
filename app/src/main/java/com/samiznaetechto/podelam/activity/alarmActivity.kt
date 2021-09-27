@@ -1,4 +1,4 @@
-package com.samiznaetechto.podelam
+package com.samiznaetechto.podelam.activity
 
 import android.media.Ringtone
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.samiznaetechto.podelam.R
 import com.samiznaetechto.podelam.exercises.ExerciseGenerator
 import kotlin.system.exitProcess
 

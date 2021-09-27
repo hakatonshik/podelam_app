@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.view.View
-import com.samiznaetechto.podelam.TransportSelectActivity
+import com.samiznaetechto.podelam.activity.TransportSelectActivity
 
 class MainActivityPresenter(context : Context) {
     private var c = context

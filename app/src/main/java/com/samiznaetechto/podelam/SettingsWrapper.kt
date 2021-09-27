@@ -38,10 +38,9 @@ class SettingsWrapper (appDir : String) {
             File(path).delete()
     }
 
-    fun settingRead() : setting
+    suspend fun settingRead() : setting
     {
         val content = File(path).readLines()
-        var _setting : setting
 
         var userStatusId = userStatus.STUDENT //default
         var userTransportId = userTransport.BUS // default

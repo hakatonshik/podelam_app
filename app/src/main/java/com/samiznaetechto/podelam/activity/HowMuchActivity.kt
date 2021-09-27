@@ -1,30 +1,28 @@
-package com.samiznaetechto.podelam
+package com.samiznaetechto.podelam.activity
 
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import com.samiznaetechto.podelam.*
+import com.samiznaetechto.podelam.databinding.ActivityHowMuchBinding
 
 class howMuchActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityHowMuchBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_how_much)
+        binding = ActivityHowMuchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val status = intent.getStringExtra("Status")
         val transport = intent.getStringExtra("Transport")
         var _setting : setting?
 
-        val submit : Button = findViewById(R.id.submitBtn)
-        submit.setOnClickListener { i ->
+        binding.submitBtn.setOnClickListener { i ->
             i.setBackgroundColor(Color.RED)
-
-            val wakeup : TextView = findViewById(R.id.wakeupTimeTextBox)
-            val prepare : TextView = findViewById(R.id.preparationTimeTextBox)
-            val breakfast : TextView = findViewById(R.id.breakfastTimeTextBox)
-
             _setting = setting( userStatusId = when(status)
                     {
                         "Student" -> userStatus.STUDENT
@@ -41,9 +39,10 @@ class howMuchActivity : AppCompatActivity() {
                     "Walk" -> userTransport.PEDESTRIAN
                     else -> userTransport.NOTSTATED
                 },
-                wakeupTime = wakeup.text.toString().toInt(),
-                preparationTime = prepare.text.toString().toInt(),
-                breakfastTime = breakfast.text.toString().toInt())
+                wakeupTime = binding.wakeupTimeTextBox.text.toString().toInt(),
+                preparationTime = binding.preparationTimeTextBox.text.toString().toInt(),
+                breakfastTime = binding.breakfastTimeTextBox.text.toString().toInt())
+
             val _set = SettingsWrapper(applicationInfo.dataDir)
             _set.settingSet(_setting!!)
             val intent = Intent(this, defaultActivity::class.java)
